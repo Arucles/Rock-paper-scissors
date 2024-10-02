@@ -1,71 +1,77 @@
+let humanScore = document.querySelector("#player-score");
+let PCScore = document.querySelector('#pc-score');
+let alertMessage = document.querySelector('#alert-messages')
+let PC = 0;
+let player = 0;
+let roundCount = 1;
 
 
-let humanScore = 0;
-let PCScore = 0; 
-roundCount = 0;
 
-while (roundCount <5) {
-    const humanChoice = getPlayerChoice();
+// we use the .forEach method to iterate through each button
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+    // and for each one we add a 'click' listener
+    button.addEventListener("click", () => {
+    const playerChoice = button.id;
     const PCAnswer = getComputerChoice();
-    playRound(humanChoice, PCAnswer);
-}
-
-if (PCScore > humanScore) {
-    console.log("PC Wins the Game!!!");
-} else if ( PCScore<humanScore){
-    console.log("Player Wins the game!!!");
-} else {
-    console.log("It's a draw !!");
-}
-
-
-
+    playRound(playerChoice, PCAnswer);
+    if (PC == 5 || player == 5) {
+        if (PC > player) {
+            alert("PC Wins the Game!");
+        } else if ( PC<player){
+            alert("Player Wins the game!");
+        }
+    }
+    });
+});
 
 function playRound(playerChoice, answer){
+        
         if (playerChoice != answer) {
             if (playerChoice === "Rock" && answer === "Paper") {
                 console.log("PC Chose: "+answer+", PC Wins!");
-                PCScore ++;
+                alertMessage.textContent = "PC Chose: "+answer+", PC Wins!"
+                PC ++;
+                PCScore.textContent = PC;
                 roundCount ++;
             } else if (playerChoice === "Rock" && answer === "Scissors"){
                 console.log("PC Chose: "+answer+", Player wins!");
-                humanScore ++;
+                alertMessage.textContent = "PC Chose: "+answer+", Player wins!"
+                player ++;
+                humanScore.textContent = player;
                 roundCount ++;
             } else if (playerChoice === "Scissors" && answer === "Paper"){
                 console.log("PC Chose: "+answer+", Player wins!");
-                humanScore ++;
+                alertMessage.textContent = "PC Chose: "+answer+", Player wins!"
+                player ++;
+                humanScore.textContent = player;
                 roundCount ++;
             } else if (playerChoice === "Scissors" && answer === "Rock"){
                 console.log("PC Chose: "+answer+", PC wins!");
-                humanScore ++;
+                alertMessage.textContent = "PC Chose: "+answer+", PC Wins!"
+                PC ++;
+                PCScore.textContent = PC;
                 roundCount ++;
             } else if (playerChoice === "Paper" && answer === "Scissors"){
                 console.log("PC Chose: "+answer+", PC Wins!");
-                humanScore ++;
+                alertMessage.textContent = "PC Chose: "+answer+", PC Wins!"
+                PC ++;
+                PCScore.textContent = PC;
                 roundCount ++;
             } else if (playerChoice === "Paper" && answer === "Rock"){
                 console.log("PC Chose: "+answer+", Player wins!");
-                humanScore ++;
+                alertMessage.textContent = "PC Chose: "+answer+", Player wins!"
+                player ++;
+                humanScore.textContent = player;
                 roundCount ++;
             }
         } else {
             console.log("PC Chose: "+answer+ " so it's a draw!");
-            roundCount ++;
             return;
         } 
-    console.log("Scores: Player: "+humanScore+" // PC: "+PCScore);
+    console.log("Scores: Player: "+player+" // PC: "+PC);
 }
 
-
-function getPlayerChoice(){
-    let playerChoice = prompt("Choose Rock, Paper or Scissors: ");
-    if (playerChoice === "Rock" || playerChoice === "Scissors" || playerChoice === "Paper"){
-        return playerChoice;
-    } else {
-        console.log("not a valid input");
-    }
-    
-}
 
 function getComputerChoice(){
     const choices = ["Rock", "Paper", "Scissors"];
